@@ -1,0 +1,40 @@
+name: Publish to npm
+
+on:
+  push:
+    tags:
+      - 'v*' # Triggers on any tag starting with 'v', e.g., v1.0.0, v0.1.0
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x' # Use a modern LTS version
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        # Uses npm ci for clean, reliable installs based on package-lock.json
+        run: npm ci 
+
+      - name: Run Typecheck
+        run: npm run typecheck
+
+      - name: Run Tests
+        run: npm run test
+
+      - name: Build project
+        run: npm run build
+
+      - name: Publish package
+        # Scoped packages (@username/package) require --access public to be free/public
+        run: npm publish --access public
+        env:
+          # This token will be provided by GitHub Secrets
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
