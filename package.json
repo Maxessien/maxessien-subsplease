@@ -1,0 +1,42 @@
+{
+  "name": "@maxessien/subsplease",
+  "version": "0.1.0",
+  "description": "A typed API client that fetches and parses subsplease.org (anime subtitles) into structured responses: schedules, show lists, episodes, and episode torrents.",
+  "license": "MIT",
+  "author": "Max Essien",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsup && tsc -p tsconfig.build.json",
+    "test": "vitest run",
+    "test:live": "LIVE=1 vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "subsplease",
+    "anime",
+    "subtitles",
+    "api",
+    "client",
+    "scraper",
+    "rss",
+    "torrent"
+  ],
+  "dependencies": {
+    "cheerio": "^1.0.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.1",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.11"
+  }
+}
